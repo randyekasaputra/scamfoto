@@ -26,14 +26,20 @@ app.post('/log', (req, res) => {
         receivedAt: new Date().toISOString()
     };
 
+    const mapsUrl = `https://www.google.com/maps?q=${hit.lat},${hit.lon}`;
+
     // Format Log agar mudah dibaca di Railway
     console.log(`
 🔔 DATA MASUK BARU!
-📱 DEVICE   : ${hit.ua} (Layar: ${hit.screen})
+---------------------------------------------------------------
+📱 DEVICE   : ${hit.ua}
+💻 LAYAR    : ${hit.screen}
 📍 LOKASI   : ${hit.city}, ${hit.region}, ${hit.country}
 🌐 IP       : ${hit.ip}
 🏢 ISP      : ${hit.isp}
-🗺️ MAPS     : https://www.google.com/maps?q=${hit.lat},${hit.lon}
+
+� KLIK LINK DI BAWAH UNTUK LIHAT LOKASI 👇
+${mapsUrl}
 ---------------------------------------------------------------
     `);
 
