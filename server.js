@@ -4,8 +4,20 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-app.use(cors());
+// Update CORS agar lebih permissive untuk debugging
+app.use(cors({
+    origin: '*', // Allow all origins (Netlify, localhost, etc.)
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
+
 app.use(express.json());
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
 
 // Endpoint webhook utama
 app.post('/log', (req, res) => {
