@@ -78,7 +78,13 @@ app.get('/logs', (req, res) => {
     res.json(logs);
 });
 
-app.listen(3000, () => {
-    console.log('🚀 Server running on http://localhost:3000');
-    console.log('📊 Logs: http://localhost:3000/logs');
+// Endpoint Root (Supaya tidak "Cannot GET /")
+app.get('/', (req, res) => {
+    res.send('Server is running normally! 🚀<br>Go to <a href="/logs">/logs</a> to view data.');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📊 Logs: http://localhost:${PORT}/logs`);
 });
